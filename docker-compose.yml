@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./devops/docker/nginx
+    links:
+      - php
+    depends_on:
+      - php
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./nginx/var/log:/var/log/nginx
+      - ./public:/public
+
+  php:
+    build:
+      context: ./devops/docker/php
+      target: dev
+    links:
+      - db
+    volumes:
+      - ./backend:/code
+
+  db:
+    build:
+      context: ./devops/docker/postgres
+      target: dev
+    volumes:
+      - ./db/var/pgdata:/var/lib/postgresql/data
+      - ./db/initdb.d/:/docker-enrypoint/initdb.d/

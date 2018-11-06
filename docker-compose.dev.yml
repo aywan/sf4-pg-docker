@@ -1,0 +1,6 @@
+version: '3.7'
+
+services:
+  web:
+    labels:
+      com.dnsdock.alias: web-${DOMAIN_SUFFIX:-sf.docker}

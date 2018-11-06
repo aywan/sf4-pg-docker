@@ -1,0 +1,3 @@
+FROM postgres:11-alpine as dev
+
+ENV POSTGRES_PASSWORD=123456
